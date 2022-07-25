@@ -37,7 +37,7 @@ class PulsarConsumer (private val clientService: PulsarClientService, private va
     }
 
     private fun createConsumer  () : Consumer<ByteArray>? {
-        val consumer = this.clientService.pulsarClient.newConsumer()
+        val consumer = this.clientService.createPulsarConnection().newConsumer()
             .topic(this.topic)
             .subscriptionType(SubscriptionType.Exclusive)
             .subscriptionName(this.subscription)

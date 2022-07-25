@@ -9,13 +9,11 @@ import org.springframework.stereotype.Component
 class PulsarPublisher(var clientService: PulsarClientService) {
 
     val topic: String = "output-topic"
-    val producer: Producer<ByteArray>
-
-    init{
-        producer = clientService.pulsarClient.newProducer()
-            .topic(topic)
-            .compressionType(CompressionType.LZ4)
-            .create()
+    private val producer: Producer<ByteArray> by lazy {
+        clientService.createPulsarConnection().newProducer()
+        .topic(topic)
+        .compressionType(CompressionType.LZ4)
+        .create()
     }
 
 
@@ -25,6 +23,4 @@ class PulsarPublisher(var clientService: PulsarClientService) {
         //send message
         msg.send()
     }
-
-
 }

@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service
 class PulsarClientService {
 
     val pulsarURL : String = "pulsar://localhost:6650"
-    val pulsarClient : PulsarClient
 
-    init{
-        println("create pulsar client")
-        this.pulsarClient = PulsarClient.builder()
+    fun createPulsarConnection() : PulsarClient{
+        println("connect to pulsar at $pulsarURL")
+        val pulsarClient = PulsarClient.builder()
             .serviceUrl(pulsarURL)
-            .build()
+            .build() //build already establishs connection
+        return pulsarClient
     }
 
 }
