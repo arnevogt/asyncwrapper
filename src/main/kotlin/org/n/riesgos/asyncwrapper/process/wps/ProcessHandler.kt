@@ -11,7 +11,7 @@ class ProcessHandler(var publisher: PulsarPublisher) : ApplicationListener<Messa
 
     override fun onApplicationEvent(event: MessageEvent) {
         println("received message: ${event.msg}")
-        val process = WPSProcess()
+        val process = DummyProcess()
         val output = process.runProcess(event.msg)
         publisher.publishMessage(output)
     }
