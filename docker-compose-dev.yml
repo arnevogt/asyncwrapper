@@ -1,0 +1,11 @@
+version: '3.3'
+
+services:
+  mvn:
+    image: maven:3.8.6-openjdk-18
+    container_name: riesgos-mvn-builder
+    user: 1000:1000
+    volumes:
+      - './:/usr/src/mymaven'
+    working_dir: '/usr/src/mymaven'
+    command: 'tail -f /dev/null'
