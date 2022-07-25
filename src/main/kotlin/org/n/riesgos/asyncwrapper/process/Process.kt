@@ -1,4 +1,4 @@
-package org.n.riesgos.asyncwrapper.process.wps
+package org.n.riesgos.asyncwrapper.process
 
 interface Process {
     fun runProcess(input: String) : String

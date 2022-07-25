@@ -1,6 +1,8 @@
-package org.n.riesgos.asyncwrapper.process.wps
+package org.n.riesgos.asyncwrapper.process
 
-class DummyProcess : org.n.riesgos.asyncwrapper.process.wps.Process {
+import org.n.riesgos.asyncwrapper.process.Process
+
+class DummyProcess : Process {
 
     override fun runProcess(input: String): String {
         println("dummy process: $input")
