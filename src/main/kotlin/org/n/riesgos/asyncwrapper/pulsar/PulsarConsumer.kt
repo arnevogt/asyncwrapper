@@ -3,15 +3,15 @@ package org.n.riesgos.asyncwrapper.pulsar
 import org.apache.pulsar.client.api.Consumer
 import org.apache.pulsar.client.api.Message
 import org.apache.pulsar.client.api.SubscriptionType
+import org.n.riesgos.asyncwrapper.config.PulsarConfiguration
 import org.n.riesgos.asyncwrapper.events.MessageEvent
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Component
 
 @Component
-class PulsarConsumer (private val clientService: PulsarClientService, private val msgEventPublisher : ApplicationEventPublisher): Runnable{
+class PulsarConsumer (private val clientService: PulsarClientService, private val msgEventPublisher : ApplicationEventPublisher, val config: PulsarConfiguration): Runnable{
 
-    val topic = "input-topic"
-
+    val topic = config.inputTopic
 
     private val subscription : String = this.topic + "_subscription"
 

@@ -1,6 +1,7 @@
 package org.n.riesgos.asyncwrapper.process.wps
 
 
+import org.n.riesgos.asyncwrapper.config.WPSConfiguration
 import org.n.riesgos.asyncwrapper.events.MessageEvent
 import org.n.riesgos.asyncwrapper.pulsar.PulsarPublisher
 import org.springframework.context.ApplicationListener

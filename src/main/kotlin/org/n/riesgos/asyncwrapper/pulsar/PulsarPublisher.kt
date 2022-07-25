@@ -3,12 +3,14 @@ package org.n.riesgos.asyncwrapper.pulsar
 import org.apache.pulsar.client.api.CompressionType
 import org.apache.pulsar.client.api.Producer
 import org.apache.pulsar.client.api.TypedMessageBuilder
+import org.n.riesgos.asyncwrapper.config.PulsarConfiguration
 import org.springframework.stereotype.Component
 
 @Component
-class PulsarPublisher(var clientService: PulsarClientService) {
+class PulsarPublisher(var clientService: PulsarClientService, val config: PulsarConfiguration) {
 
-    val topic: String = "output-topic"
+    val topic: String = config.outputTopic
+
     private val producer: Producer<ByteArray> by lazy {
         clientService.createPulsarConnection().newProducer()
         .topic(topic)

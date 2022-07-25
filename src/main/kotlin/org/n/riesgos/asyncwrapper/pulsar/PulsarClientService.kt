@@ -1,12 +1,13 @@
 package org.n.riesgos.asyncwrapper.pulsar
 
 import org.apache.pulsar.client.api.PulsarClient
+import org.n.riesgos.asyncwrapper.config.PulsarConfiguration
 import org.springframework.stereotype.Service
 
 @Service
-class PulsarClientService {
+class PulsarClientService(val config: PulsarConfiguration) {
 
-    val pulsarURL : String = "pulsar://localhost:6650"
+    val pulsarURL : String = config.pulsarURL
 
     fun createPulsarConnection() : PulsarClient{
         println("connect to pulsar at $pulsarURL")
