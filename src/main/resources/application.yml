@@ -1,0 +1,10 @@
+#pulsar properties
+pulsar:
+    pulsarURL : pulsar://localhost:6650
+    inputTopic : input-topic
+    outputTopic : output-topic
+#wps properties
+wps:
+    wpsURL : https://rz-vm140.gfz-potsdam.de/wps/WebProcessingService
+    version : 2.0.0
+    process : org.n52.wps.server.algorithm.test.EchoProcess
