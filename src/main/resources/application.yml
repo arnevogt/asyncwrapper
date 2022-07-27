@@ -7,4 +7,4 @@ pulsar:
 wps:
     wpsURL : https://rz-vm140.gfz-potsdam.de/wps/WebProcessingService
     wpsVersion : 2.0.0
-    process : org.n52.wps.server.algorithm.test.EchoProcess
+    process : org.n52.gfz.riesgos.algorithm.impl.ShakygroundProcess
