@@ -14,7 +14,7 @@ class WPSClientService(val config : WPSConfiguration) {
         //connect session
         var connected = true;
         if(!wpsClient.serviceAlreadyRegistered(config.wpsURL)) {
-            connected = wpsClient.connect(config.wpsURL, config.version)
+            connected = wpsClient.connect(config.wpsURL, config.wpsVersion)
         }
 
         if(connected){
