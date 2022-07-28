@@ -18,7 +18,7 @@ class ProcessInputMessageHandler(var publisher: PulsarPublisher, val clientServi
     override fun handleMessage(source: Any, payload: String){
         println("received message: $payload")
         val wpsClient = clientService.establishWPSConnection()
-        val process = WPSProcess(wpsClient, config.wpsURL, config.process, config.version)
+        val process = WPSProcess(wpsClient, config.wpsURL, config.process, config.wpsVersion)
         val inputParam = InlineParameter("literalInput", payload, "text/xml");
         val input = ProcessInput("", mapOf("literalInput" to inputParam), HashMap<String, ReferenceParameter>())
         val output = process.runProcess(input)
