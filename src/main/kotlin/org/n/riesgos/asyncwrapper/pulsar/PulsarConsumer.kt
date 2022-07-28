@@ -3,17 +3,8 @@ package org.n.riesgos.asyncwrapper.pulsar
 import org.apache.pulsar.client.api.Consumer
 import org.apache.pulsar.client.api.Message
 import org.apache.pulsar.client.api.SubscriptionType
-import org.n.riesgos.asyncwrapper.config.PulsarConfiguration
-import org.n.riesgos.asyncwrapper.events.MessageEvent
-import org.springframework.context.ApplicationEventPublisher
-import org.springframework.stereotype.Component
 
-@Component
-class PulsarConsumer (private val clientService: PulsarClientService, private val msgEventPublisher : ApplicationEventPublisher, val config: PulsarConfiguration): Runnable{
-
-    val topic = config.inputTopic
-
-    private val subscription : String = this.topic + "_subscription"
+class PulsarConsumer (val topic : String, val subscription : String,  private val clientService: PulsarClientService, private val messageHandler: PulsarMessageHandler): Runnable{
 
     override fun run() {
         val consumer = createConsumer()
@@ -23,24 +14,30 @@ class PulsarConsumer (private val clientService: PulsarClientService, private va
     }
 
      private fun receiveMessages(consumer : Consumer<ByteArray>){
-        while (true) {
+        while (!Thread.interrupted()) {
             // Wait for a message
             val msg: Message<ByteArray> = consumer.receive()
             try {
-                this.msgEventPublisher.publishEvent(MessageEvent(this, String(msg.value)))
+                messageHandler.handleMessage(this, String(msg.value))
                 //acknowledge message
                 consumer.acknowledge(msg)
-            } catch (e: Exception) {
+                println("acknowledge message")
+            }catch (e: InterruptedException){
+                Thread.currentThread().interrupt()
+            }
+            catch (e: Exception) {
                 println(e)
             }
         }
+         println("end thread for subscription $subscription")
+         consumer.unsubscribe()
     }
 
     private fun createConsumer  () : Consumer<ByteArray>? {
-        val consumer = this.clientService.createPulsarConnection().newConsumer()
-            .topic(this.topic)
+        val consumer = clientService.createPulsarConnection().newConsumer()
+            .topic(topic)
             .subscriptionType(SubscriptionType.Exclusive)
-            .subscriptionName(this.subscription)
+            .subscriptionName(subscription)
             .subscribe()
         return consumer
     }
