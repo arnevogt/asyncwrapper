@@ -39,6 +39,13 @@ class DummyController (val jdbcTemplate: JdbcTemplate, val datamanagementRepo: D
 
         val shakygroundConstraints = jsonObject.getJSONObject("shakyground")
 
+
+        /*
+        The constraints could look like this:
+
+        {"shakyground": {"complex_inputs": {"quakeMLFile": [{"link": "https://bla", "encoding": "UTF-8", "mime_type": "application/json", "xmlschema": ""}]}, "literal_inputs": {"gmpe": ["Abrahamson", "Montalval"], "vsgrid": ["usgs", "micro"]}}}
+        
+         */
         if (shakygroundConstraints.has("job_id")) {
             val jobId = shakygroundConstraints.getBigInteger("job_id")
 
