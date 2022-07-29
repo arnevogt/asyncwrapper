@@ -12,5 +12,10 @@ pulsar:
 #wps properties
 wps:
     wpsURL : https://rz-vm140.gfz-potsdam.de/wps/WebProcessingService
-    version : 2.0.0
-    process : org.n52.wps.server.algorithm.test.EchoProcess
+    wpsVersion : 2.0.0
+    process : org.n52.gfz.riesgos.algorithm.impl.ShakygroundProcess
+spring:
+    datasource:
+        url: jdbc:postgresql://localhost:5432/postgres
+        username: postgres
+        password: postgres
